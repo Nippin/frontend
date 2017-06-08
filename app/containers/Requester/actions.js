@@ -14,7 +14,7 @@ export const fetchStatus = NIP => dispatch => {
 		var xhr = new XMLHttpRequest();
 		var solved = false;
 
-		xhr.open('GET', `http://nippin.cloudapp.net/api/screenshot/${NIP}`, true);
+		xhr.open('GET', `http://nippin.cloudapp.net:81/api/screenshot/${NIP}`, true);
 		xhr.responseType = 'arraybuffer';
 
 		// setting max request time
