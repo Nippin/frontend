@@ -1,6 +1,9 @@
 # travis need to have provided language type to start proper build process.
 language: node_js
 
+node_js:
+  - "7"
+
 script:
   # run services required for build artefacts
   - npm install -g webpack http-server
