@@ -1,0 +1,17 @@
+@keyframes spin{
+	from { transform: rotate(0deg) }
+	to { transform: rotate(360deg) }
+}
+	
+.fa-spinner{
+	animation-name: spin;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.requester-row{
+	i{
+		margin-right: 1rem;
+	}
+}
