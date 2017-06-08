@@ -8,7 +8,7 @@ script:
   - webpack
 
   # produce artifacts and pack them to docker image
-  - docker build -t siudeks/nippin-frontend .
+  - docker build -t nippin/frontend .
 
 # sudo is required for docker https://docs.travis-ci.com/user/docker/
 sudo: required
@@ -19,7 +19,7 @@ after_success:
   # push application image to docker registry
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push siudeks/nippin-frontend;
+    docker push nippin/frontend;
     fi
 
 
