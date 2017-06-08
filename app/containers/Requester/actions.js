@@ -49,6 +49,7 @@ export const fetchStatus = NIP => dispatch => {
 		    // set title of file
 		    a.download = `${ NIP } ${ moment().format("YYYY-MM-DD") }.png`;
 
+		    console.log( xhr.getAllResponseHeaders() );
 		    // uncomment when Access-Control-Expose-Headers or Acccess-Control-Allow-Headers will be added with AttachmentFileName header
 		    //a.download = xhr.getResponseHeader('AttachmentFileName');
 		    
