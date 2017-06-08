@@ -1,4 +1,4 @@
-require("./Requester.scss");
+require("./Requester.css");
 
 import { statusEnum } from '../../containers/Requester/reducer';
 

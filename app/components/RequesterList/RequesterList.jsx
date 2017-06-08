@@ -1,5 +1,3 @@
-require("./RequesterList.scss");
-
 import Requester from '../../containers/Requester/Requester.jsx';
 
 export default class RequesterList extends React.Component {

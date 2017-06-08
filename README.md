@@ -2,9 +2,7 @@
 
 ###Installing and running
 
-Install globaly webpack and http-server 
-Warning! - make sure that U have installed Sass gem
-
+Install globaly webpack and http-server(local development) 
 ```sh
     npm install -g webpack http-server
 ```

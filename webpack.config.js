@@ -33,12 +33,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style!css',
-			},
-			{
-				test: /\.scss$/,
-				exclude: /node_modules/,
-				loader: 'style!css!autoprefixer!sass'
+				loader: 'style!css!autoprefixer',
 			},
 			{
 				test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)|\.gif($|\?)/,
@@ -52,6 +47,6 @@ module.exports = {
 	},
 
 	//set to false when go to prod :P
-	watch: false,
+	watch: false
 };
  

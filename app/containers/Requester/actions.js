@@ -1,6 +1,8 @@
 import { constants } from './constants';
 import moment from 'moment';
 
+import { url } from '../../../srv.config';
+
 export const requestStatus = NIP => ({ type: constants.REQUEST_STATUS, NIP});
 export const receiveStatusSucc = NIP => ({ type: constants.RECEIVE_STATUS_SUCCESS, NIP});
 export const receiveStatusFail = NIP => ({ type: constants.RECEIVE_STATUS_FAILURE, NIP});
@@ -14,7 +16,7 @@ export const fetchStatus = NIP => dispatch => {
 		var xhr = new XMLHttpRequest();
 		var solved = false;
 
-		xhr.open('GET', `http://nippin.cloudapp.net/api/screenshot/${NIP}`, true);
+		xhr.open('GET', `${url}/${NIP}`, true);
 		xhr.responseType = 'arraybuffer';
 
 		// setting max request time

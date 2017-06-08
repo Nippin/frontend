@@ -1,5 +1,3 @@
-require("./Filler.scss");
-
 export default class Filler extends React.Component {
 	constructor(props){
 		super(props);
