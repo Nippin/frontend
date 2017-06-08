@@ -17,6 +17,7 @@ export const fetchStatus = NIP => dispatch => {
 		var solved = false;
 
 		xhr.open('GET', `${url}/${NIP}`, true);
+
 		xhr.responseType = 'arraybuffer';
 
 		// setting max request time
