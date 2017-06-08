@@ -6,10 +6,9 @@ export const receiveStatusSucc = NIP => ({ type: constants.RECEIVE_STATUS_SUCCES
 export const receiveStatusFail = NIP => ({ type: constants.RECEIVE_STATUS_FAILURE, NIP});
 
 export const fetchStatus = NIP => dispatch => {
-	//zmieniam stan na zlozenie zapytania
+
 	dispatch(requestStatus(NIP));
 
-	//zwraacm uchwyt do requestu
 	return new Promise( (resolve, reject) => {
 		
 		var xhr = new XMLHttpRequest();
@@ -18,18 +17,22 @@ export const fetchStatus = NIP => dispatch => {
 		xhr.open('GET', `http://nippin.cloudapp.net/api/screenshot/${NIP}`, true);
 		xhr.responseType = 'arraybuffer';
 
-		// ustalam czas po ktorym odpowiedz sie nie zamyka i status jest 0
+		// setting max request time
 		setTimeout(() => {
-			xhr.abort();
+			// if we solved out request then just don't do anything
 			if(!solved){
+				xhr.abort();
 				dispatch( receiveStatusFail(NIP) );
 		  		return reject();
 			}
-		}, 60000); // 1 minuta oczekiwania na odpowiedz :P
+		}, 60000); // 1 minute waiting then cancel the request
 
 		xhr.onload = function(e) {
 		  if (this.status == 200) {
+		  	// to make sure if timeout is still counting to prevent aborting
+		    solved = true;
 
+		    // casting to proper download data type
 		    var uInt8Array = new Uint8Array(this.response);
 		    var i = uInt8Array.length;
 		    var binaryString = new Array(i);
@@ -38,29 +41,30 @@ export const fetchStatus = NIP => dispatch => {
 		      binaryString[i] = String.fromCharCode(uInt8Array[i]);
 		    }
 		    var data = binaryString.join('');
-
 		    var base64 = window.btoa(data);
 
-		    // dowod ze nie ma naglowka Content-Disposition
-		    //console.log(xhr.getAllResponseHeaders());
-
-		    // utworz link ktory automatycznie zapisze pliczek
+		    // create link to perform downloading in proper moment
 		    var a = document.createElement("a");
-		    // ustalam tytuł - chyba ze bedzie customowy naglowek
+
+		    // set title of file
 		    a.download = `${ NIP } ${ moment().format("YYYY-MM-DD") }.png`;
-		    // content pliku
+
+		    // uncomment when Access-Control-Expose-Headers or Acccess-Control-Allow-Headers will be added with AttachmentFileName header
+		    //a.download = xhr.getResponseHeader('AttachmentFileName');
+		    
+		    // here is out content
 		    a.href="data:image/png;base64,"+base64;
-		    // wymuszam zapisanie przez klikniecie
+
+		    // extortion downloading
 		    a.click();
 
 		    // odpalam jako sukces
 		    dispatch( receiveStatusSucc(NIP) );
-		    solved = true;
 
 		 	return resolve(NIP);
 		  }
 
-		  // jak by cos poszlo nie tak
+		  // if something goes wrong - just for sure
 		  dispatch( receiveStatusFail(NIP) );
 		  return reject();
 

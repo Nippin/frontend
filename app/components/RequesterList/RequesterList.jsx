@@ -33,7 +33,7 @@ export default class RequesterList extends React.Component {
 	}
 
 	checkDownloadAvailability(){
-		if(this.state.processing.length < this.state.step){
+		if(this.state.processing.length < this.state.step && this.state.index < this.props.arrayNIP.length ){
 			this.performQueueDownload();
 		}
 	}

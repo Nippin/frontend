@@ -53,13 +53,5 @@ module.exports = {
 
 	//set to false when go to prod :P
 	watch: false,
-
-	// sassLoader: {
-	// 	includePaths: [ 'app/styles' ],
-	// 	data: 	'@import "app/common/styles/variables";'+
-	// 			'@import "app/common/styles/mixins";'+
-	// 			'@import "app/common/styles/reset";'+
-	// 			'@import "app/common/styles/reusable";'
-	// }
 };
  
