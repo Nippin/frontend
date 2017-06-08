@@ -2,7 +2,7 @@
 language: node_js
 
 script:
-  # run services required for tests
+  # run services required for build artefacts
   - npm install -g webpack http-server
   - npm install
   - webpack
