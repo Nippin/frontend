@@ -1,0 +1,25 @@
+# travis need to have provided language type to start proper build process.
+language: node_js
+
+script:
+  # run services required for tests
+  - npm install -g webpack http-server
+  - npm install
+  - webpack
+
+  # produce artifacts and pack them to docker image
+  - docker build -t siudeks/nippin-frontend .
+
+# sudo is required for docker https://docs.travis-ci.com/user/docker/
+sudo: required
+services:
+  - docker
+
+after_success:
+  # push application image to docker registry
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push siudeks/nippin-frontend;
+    fi
+
+
