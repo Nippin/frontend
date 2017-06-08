@@ -23,7 +23,7 @@ export const fetchStatus = NIP => dispatch => {
 			if(!solved){
 				xhr.abort();
 				dispatch( receiveStatusFail(NIP) );
-		  		return reject();
+		  		return resolve();
 			}
 		}, 60000); // 1 minute waiting then cancel the request
 
@@ -47,11 +47,7 @@ export const fetchStatus = NIP => dispatch => {
 		    var a = document.createElement("a");
 
 		    // set title of file
-		    a.download = `${ NIP } ${ moment().format("YYYY-MM-DD") }.png`;
-
-		    console.log( xhr.getAllResponseHeaders() );
-		    // uncomment when Access-Control-Expose-Headers or Acccess-Control-Allow-Headers will be added with AttachmentFileName header
-		    //a.download = xhr.getResponseHeader('AttachmentFileName');
+			a.download = xhr.getResponseHeader('AttachmentFileName');
 		    
 		    // here is out content
 		    a.href="data:image/png;base64,"+base64;
@@ -63,12 +59,10 @@ export const fetchStatus = NIP => dispatch => {
 		    dispatch( receiveStatusSucc(NIP) );
 
 		 	return resolve(NIP);
+		  }else{
+		  	dispatch( receiveStatusFail(NIP) );
+		  	return resolve();
 		  }
-
-		  // if something goes wrong - just for sure
-		  dispatch( receiveStatusFail(NIP) );
-		  return reject();
-
 		};
 
 		xhr.send();
